@@ -10,9 +10,10 @@ function gulpRename(obj) {
   function parsePath(path) {
     var extname = Path.extname(path);
     return {
-      dirname: Path.dirname(path),
+      dirname: Path.basename(Path.dirname(path)),
       basename: Path.basename(path, extname),
-      extname: extname
+      extname: extname,
+      absPath: Path.dirname(path)
     };
   }
 
@@ -20,7 +21,7 @@ function gulpRename(obj) {
 
 
     var file = originalFile.clone({contents: false});
-    var parsedPath = parsePath(file.relative);
+    var parsedPath = parsePath(file.path);
     var path;
 
     var type = typeof obj;
